@@ -11,4 +11,6 @@ urlpatterns = [
     path('jobs-board/token/', TokenObtainPairView.as_view()),
     path('jobs-board/refresh/',TokenRefreshView.as_view()),
     path('jobs-board/users/',include('users.urls')),
+    path('jobs-board/jobs/',include('jobs.urls')),
+    path('jobs-board/applications/',include('applications.url'))
 ]

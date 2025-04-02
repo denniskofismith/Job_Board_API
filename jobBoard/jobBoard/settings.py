@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jobs',
     'users',
-    
+    'applications',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -81,7 +81,12 @@ WSGI_APPLICATION = 'jobBoard.wsgi.application'
 
 DATABASES = {
     'default': {
-     
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'jobboard_db',
+        'USER': 'postgres',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

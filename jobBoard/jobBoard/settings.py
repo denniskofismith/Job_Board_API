@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'jobBoard.urls'
@@ -139,12 +140,14 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, 
 }
 from datetime import timedelta
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-    'ACCESS_TOKEN_REFRESH': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
+    'ACCESS_TOKEN_REFRESH': timedelta(days=30),
 } 
 
 AUTH_USER_MODEL = 'users.CustomUser'

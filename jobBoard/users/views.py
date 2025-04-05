@@ -5,7 +5,8 @@ from rest_framework_simplejwt.tokens import AccessToken,RefreshToken
 from .serializers import UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
-
+from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.tokens import RefreshToken
 User = get_user_model()
 
 # Create your views here.
@@ -42,3 +43,25 @@ class ProfileView(APIView):
     
     def get(self,request):
         return Response({"message": f"hello {request.user.username}"})
+
+
+class RefreshTokenAPIView(TokenRefreshView):
+    pass
+
+class LogoutAPIView(APIView):
+    
+    permission_classes =[permissions.IsAuthenticated]
+    
+    def post(self,request):
+        
+        try:
+            refresh_token = request.data["refresh"]
+            
+            token = RefreshToken(refresh_token)
+            
+            token.blacklist()
+            
+            return Response({"message":"Logged Out Successfully"},status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({"error":"Invalid token "},status=status.HTTP_400_BAD_REQUEST)
